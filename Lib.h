@@ -69,4 +69,46 @@ vector<string> readFileAsLines(const char* fileName)
 	return splitIntoLines(buf);
 }
 
+unsigned int consumeWhiteSpace(const string &a, unsigned int offset)
+{
+	unsigned int i = 0;
+	while (offset + i != a.length())
+	{
+		char c = a[i + offset];
+		if (c != ' ' && c != '\t')
+		{
+			return i;
+		}
+		i++;
+	}
+	return 0;
+}
+
+bool matchString(const string &needle, const string &haystack, unsigned int haystackOffset)
+{
+	unsigned int i = 0;
+	for (; i!=needle.length() ; i++)
+	{
+		if (haystack[haystackOffset + i] != needle[i])
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+int decodeInt(const string &buf, unsigned int offset, unsigned int *consume)
+{
+	unsigned int i = 0;
+	int temp = 0;
+	string obuf; 
+	while ((buf[offset + i] >= '0' && buf[offset + i] <= '9') || buf[offset+i] == '-')
+	{
+		obuf.append(1, buf[offset + i]);
+		i++;
+	}
+	*consume = i;
+	return stoi(obuf, 0, 0);
+}
+
 #endif //LIB_H_
