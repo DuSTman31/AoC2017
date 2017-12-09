@@ -111,4 +111,40 @@ int decodeInt(const string &buf, unsigned int offset, unsigned int *consume)
 	return stoi(obuf, 0, 0);
 }
 
+vector<string> split(string &in)
+{
+	unsigned int i = 0;
+	vector<string> results;
+	string buf;
+
+	while (i<in.length())
+	{
+		i += consumeWhiteSpace(in, i);
+
+		while (i<in.length() && in[i] != ' ' && in[i] != '\t')
+		{
+			buf.append(1, in[i]);
+			i++;
+		}
+
+		if (buf.length() != 0)
+		{
+			results.push_back(buf);
+			buf = string();
+		}
+
+	}
+	return results;
+}
+
+string stripBrackets(string &a)
+{
+	string out;
+	if (a[0] == '(' && a[a.length() - 1] == ')')
+	{
+		out = a.substr(1, a.length() - 2);
+	}
+	return out;
+}
+
 #endif //LIB_H_
