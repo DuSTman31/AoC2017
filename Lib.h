@@ -97,6 +97,19 @@ bool matchString(const string &needle, const string &haystack, unsigned int hays
 	return true;
 }
 
+bool matchString(const char *needle, const string &haystack, unsigned int haystackOffset)
+{
+	unsigned int i = 0;
+	for (; needle[i] != '\0' ; i++)
+	{
+		if (haystack[haystackOffset + i] != needle[i])
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 int decodeInt(const string &buf, unsigned int offset, unsigned int *consume)
 {
 	unsigned int i = 0;
@@ -145,6 +158,25 @@ string stripBrackets(string &a)
 		out = a.substr(1, a.length() - 2);
 	}
 	return out;
+}
+
+string trimTrailingNewlines(const string &a)
+{
+  int toSkip = 0;
+  
+  for(int i = a.length()-1 ; i!=-1 ; i--)
+    {
+      if(a[i] == '\n' || a[i] == '\r')
+	{
+	  toSkip++;
+	}
+      else
+	{
+	  break;
+	}
+    }
+
+  return a.substr(0, a.length()-toSkip);
 }
 
 #endif //LIB_H_
