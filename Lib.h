@@ -22,9 +22,9 @@ string readWholeFile(const char *fileName){
 		fclose(fh);
 		string bux;
 
-		for (unsigned int i = 0 ; i != fileSize; i++)
+		for (unsigned int i = 0; i != fileSize; i++)
 		{
-			bux.append(1, buf[i]); 
+			bux.append(1, buf[i]);
 		}
 
 		delete[] buf;
@@ -87,7 +87,7 @@ unsigned int consumeWhiteSpace(const string &a, unsigned int offset)
 bool matchString(const string &needle, const string &haystack, unsigned int haystackOffset)
 {
 	unsigned int i = 0;
-	for (; i!=needle.length() ; i++)
+	for (; i != needle.length(); i++)
 	{
 		if (haystack[haystackOffset + i] != needle[i])
 		{
@@ -100,7 +100,7 @@ bool matchString(const string &needle, const string &haystack, unsigned int hays
 bool matchString(const char *needle, const string &haystack, unsigned int haystackOffset)
 {
 	unsigned int i = 0;
-	for (; needle[i] != '\0' ; i++)
+	for (; needle[i] != '\0'; i++)
 	{
 		if (haystack[haystackOffset + i] != needle[i])
 		{
@@ -114,8 +114,8 @@ int decodeInt(const string &buf, unsigned int offset, unsigned int *consume)
 {
 	unsigned int i = 0;
 	int temp = 0;
-	string obuf; 
-	while ((buf[offset + i] >= '0' && buf[offset + i] <= '9') || buf[offset+i] == '-')
+	string obuf;
+	while ((buf[offset + i] >= '0' && buf[offset + i] <= '9') || buf[offset + i] == '-')
 	{
 		obuf.append(1, buf[offset + i]);
 		i++;
@@ -124,7 +124,7 @@ int decodeInt(const string &buf, unsigned int offset, unsigned int *consume)
 	return stoi(obuf, 0, 0);
 }
 
-vector<string> split(string &in)
+vector<string> split(const string &in)
 {
 	unsigned int i = 0;
 	vector<string> results;
@@ -162,21 +162,40 @@ string stripBrackets(string &a)
 
 string trimTrailingNewlines(const string &a)
 {
-  int toSkip = 0;
-  
-  for(int i = a.length()-1 ; i!=-1 ; i--)
-    {
-      if(a[i] == '\n' || a[i] == '\r')
-	{
-	  toSkip++;
-	}
-      else
-	{
-	  break;
-	}
-    }
+	int toSkip = 0;
 
-  return a.substr(0, a.length()-toSkip);
+	for (int i = a.length() - 1; i != -1; i--)
+	{
+		if (a[i] == '\n' || a[i] == '\r')
+		{
+			toSkip++;
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	return a.substr(0, a.length() - toSkip);
+}
+
+string trimTrailingCommas(const string &a)
+{
+	int toSkip = 0;
+
+	for (int i = a.length() - 1; i != -1; i--)
+	{
+		if (a[i] == ',')
+		{
+			toSkip++;
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	return a.substr(0, a.length() - toSkip);
 }
 
 #endif //LIB_H_
