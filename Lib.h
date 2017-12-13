@@ -198,4 +198,23 @@ string trimTrailingCommas(const string &a)
 	return a.substr(0, a.length() - toSkip);
 }
 
+string trimTrailingColons(const string &a)
+{
+	int toSkip = 0;
+
+	for (int i = a.length() - 1; i != -1; i--)
+	{
+		if (a[i] == ':')
+		{
+			toSkip++;
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	return a.substr(0, a.length() - toSkip);
+}
+
 #endif //LIB_H_
