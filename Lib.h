@@ -113,15 +113,22 @@ bool matchString(const char *needle, const string &haystack, unsigned int haysta
 int decodeInt(const string &buf, unsigned int offset, unsigned int *consume)
 {
 	unsigned int i = 0;
-	int temp = 0;
 	string obuf;
-	while ((buf[offset + i] >= '0' && buf[offset + i] <= '9') || buf[offset + i] == '-')
+	while ((i < buf.length()) && ((buf[offset + i] >= '0' && buf[offset + i] <= '9') || buf[offset + i] == '-'))
 	{
 		obuf.append(1, buf[offset + i]);
 		i++;
 	}
 	*consume = i;
-	return stoi(obuf, 0, 0);
+	if (obuf.length() > 0)
+	{
+		return stoi(obuf, 0, 0);
+	}
+	else
+	{
+		return 0;
+	}
+
 }
 
 vector<string> split(const string &in)
@@ -146,6 +153,35 @@ vector<string> split(const string &in)
 			buf = string();
 		}
 
+	}
+	return results;
+}
+
+vector<string> splitComma(const string &in)
+{
+	unsigned int i = 0;
+	vector<string> results;
+	string buf;
+
+	while (i<in.length())
+	{
+		while (i<in.length() && in[i] != ',')
+		{
+			buf.append(1, in[i]);
+			i++;
+		}
+
+		if (buf.length() != 0)
+		{
+			results.push_back(buf);
+			buf = string();
+		}
+		i ++;
+	}
+	if (buf.length() != 0)
+	{
+		results.push_back(buf);
+		buf = string();
 	}
 	return results;
 }
